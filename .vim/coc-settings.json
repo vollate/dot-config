@@ -1,0 +1,32 @@
+{
+  "colors.highlightPriority": 1000,
+  "coc.preferences.formatOnSave": true,
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveTimeout": 200,
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.silentAutoupdate": true,
+  "diagnostic.displayByAle": false,
+  "markdownlint.onSave": true,
+  "markdownlint.onOpen": true,
+  "markdownlint.onChange": true,
+  "markdownlint.config": {
+    "line-length": false,
+    "no-bare-urls": false,
+    "no-inline-html": false,
+    "no-duplicate-heading": false
+  },
+  "coc.source.file.enable": true,
+  "coc.source.word.filetypes": [
+    "md",
+    "markdown"
+  ],
+  "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
+  "workspace.rootPatterns": [
+    ".git",
+    ".hg",
+    ".projections.json",
+    ".root"
+  ],
+  "python.pythonPath": "/home/lambillda/.py-conda",
+  "clangd.path": "/usr/bin/clangd"
+}
