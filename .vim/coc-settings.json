@@ -27,6 +27,6 @@
     ".projections.json",
     ".root"
   ],
-  "python.pythonPath": "/home/lambillda/.py-conda",
+  "python.pythonPath": "/home/$USER/.py-conda",
   "clangd.path": "/usr/bin/clangd"
 }
