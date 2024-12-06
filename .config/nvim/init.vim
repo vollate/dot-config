@@ -238,6 +238,15 @@ endif
 if !isdirectory($HOME.'/.vim/files/undo') && exists('*mkdir')
   call mkdir($HOME.'/.vim/files/undo')
 endif
+if !isdirectory($HOME.'/.vim/nvim_files') && exists('*mkdir')
+  call mkdir($HOME.'/.vim/nvim_files')
+endif
+if !isdirectory($HOME.'/.vim/nvim_files/backup') && exists('*mkdir')
+  call mkdir($HOME.'/.vim/nvim_files/backup')
+endif
+if !isdirectory($HOME.'/.vim/nvim_files/undo') && exists('*mkdir')
+  call mkdir($HOME.'/.vim/nvim_files/undo')
+endif
 
 function BackupClean(days)
     if isdirectory(&backupdir)
