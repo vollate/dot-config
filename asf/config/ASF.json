@@ -1,0 +1,5 @@
+{
+  "WebProxy": "http://host.docker.internal:28631",
+  "FarmingDelay": 30,
+  "IPCPassword": "114514"
+}
