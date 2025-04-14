@@ -1,0 +1,6 @@
+evdev:input:b0003*
+ KEYBOARD_KEY_70039=esc
+ KEYBOARD_KEY_70029=capslock
+ KEYBOARD_KEY_700e4=rightalt
+ KEYBOARD_KEY_700e6=rightctrl
+

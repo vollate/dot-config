@@ -246,11 +246,11 @@ set backupcopy=auto
 set undofile
 set undolevels=5140
 if has ('nvim')
-    set backupdir=$HOME/.vim/nvim_files/backup/
-    set undodir=$HOME/.vim/nvim_files/undo/
+    set backupdir=$HOME/.vim/nvim_files/backup//
+    set undodir=$HOME/.vim/nvim_files/undo//
 else
-    set backupdir=$HOME/.vim/files/backup/
-    set undodir=$HOME/.vim/files/undo/
+    set backupdir=$HOME/.vim/files/backup//
+    set undodir=$HOME/.vim/files/undo//
 endif
 if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
   call mkdir($HOME.'/.vim/files')
