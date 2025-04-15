@@ -1,6 +1,6 @@
 1. Put the file in /etc/udev/hwdb.d
 2. Run the command:
-   `sudo udevadm hwdb --update`
+   `sudo systemd-hwdb update`
 3. Run the command to trigger the udev rules update:
    `sudo udevadm trigger`
 
