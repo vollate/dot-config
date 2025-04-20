@@ -63,9 +63,9 @@ Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
 
 " syntax highlight
-Plug 'bfrg/vim-cpp-modern' " C/C++
+Plug 'bfrg/vim-c-cpp-modern' " C/C++
 "Plug 'fatih/vim-go'
-Plug 'vim-python/python-syntax' " Python
+"Plug 'vim-python/python-syntax' " Python
 
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -181,6 +181,7 @@ nmap <leader>= <Plug>AirlineSelectNextTab
 nnoremap <leader>t :NERDTreeFocus<CR>
 nnoremap <C-t> :NERDTreeTabsToggle<CR>
 nnoremap <C-n> :NERDTreeTabsFind<CR>
+let g:nerdtree_tabs_smart_startup_focus = 1
 
 " vimwiki 
 let g:vimwiki_list = [{'path':'~/.vimwiki/','path_html':'~/.vimwiki/html/','html_header':'~/.vimwiki/template/header.tpl','syntax':'markdown','ext':'.md'}]
@@ -400,12 +401,18 @@ let g:cpp_simple_highlight = 1
 let g:cpp_function_highlight = 1
 let g:cpp_member_highlight = 1
 
-let g:python_version_2 = 0
-let g:python_highlight_all = 1
+"let g:cpp_class_scope_highlight = 1
+"let g:cpp_member_variable_highlight = 1
+"let g:cpp_class_decl_highlight = 1
+"let g:cpp_posix_standard = 1
+"let g:cpp_experimental_simple_template_highlight = 1
+"let g:cpp_experimental_template_highlight = 1
+"let g:cpp_concepts_highlight = 1
+"let g:cpp_no_function_highlight = 1
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
-let g:tagbar_width = max([25,winwidth(0)/5])
+let g:tagbar_width = min([25,winwidth(0)/5])
 
 " coc.vim
 " Some servers have issues with backup files, see #649.
