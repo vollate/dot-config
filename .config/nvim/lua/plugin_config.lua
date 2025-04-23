@@ -4,7 +4,7 @@ local M = {}
 function M.setup_bufferline()
     require("bufferline").setup({
         options = {
-numbers = "ordinal", -- Show buffer numbers
+            numbers = "ordinal", -- Show buffer numbers
             show_buffer_close_icons = true,
             show_close_icon = true,
             separator_style = {
@@ -19,33 +19,33 @@ numbers = "ordinal", -- Show buffer numbers
                 text_align = "center"
             } },
             -- Add custom area for diagnostics count on the right
-               custom_areas = {
-    right = function()
-        local result = {}
-        local seve = vim.diagnostic.severity
-        local error = #vim.diagnostic.get(0, {severity = seve.ERROR})
-        local warning = #vim.diagnostic.get(0, {severity = seve.WARN})
-        local info = #vim.diagnostic.get(0, {severity = seve.INFO})
-        local hint = #vim.diagnostic.get(0, {severity = seve.HINT})
+            custom_areas = {
+                right = function()
+                    local result = {}
+                    local seve = vim.diagnostic.severity
+                    local error = #vim.diagnostic.get(0, { severity = seve.ERROR })
+                    local warning = #vim.diagnostic.get(0, { severity = seve.WARN })
+                    local info = #vim.diagnostic.get(0, { severity = seve.INFO })
+                    local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
 
-        if error ~= 0 then
-            table.insert(result, {text = "  " .. error, link = "DiagnosticError"})
-        end
+                    if error ~= 0 then
+                        table.insert(result, { text = "  " .. error, link = "DiagnosticError" })
+                    end
 
-        if warning ~= 0 then
-            table.insert(result, {text = "  " .. warning, link = "DiagnosticWarn"})
-        end
+                    if warning ~= 0 then
+                        table.insert(result, { text = "  " .. warning, link = "DiagnosticWarn" })
+                    end
 
-        if hint ~= 0 then
-            table.insert(result, {text = "  " .. hint, link = "DiagnosticHint"})
-        end
+                    if hint ~= 0 then
+                        table.insert(result, { text = "  " .. hint, link = "DiagnosticHint" })
+                    end
 
-        if info ~= 0 then
-            table.insert(result, {text = "  " .. info, link = "DiagnosticInfo"})
-        end
-        return result
-    end,
-    }
+                    if info ~= 0 then
+                        table.insert(result, { text = "  " .. info, link = "DiagnosticInfo" })
+                    end
+                    return result
+                end,
+            }
 
 
         }
@@ -79,7 +79,7 @@ function M.setup_nvim_tree()
         },
         update_focused_file = {
             enable = true,
-            update_cwd = false
+            update_root = false
         }
     }
 end
@@ -94,9 +94,9 @@ function M.setup_rainbow_delimiters()
     }
 
     local query_config = {
-        [''] = 'rainbow-delimiters', 
-        lua = 'rainbow-blocks', 
-        python = 'rainbow-blocks', 
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+        python = 'rainbow-blocks',
         bash = 'rainbow-blocks',
     }
 
@@ -121,7 +121,6 @@ function M.setup_rainbow_delimiters()
         },
     }
 end
-
 
 -- Setup for colorscheme (moved from settings.lua)
 function M.setup_colorscheme()
@@ -168,39 +167,39 @@ function M.setup_asynctasks()
     vim.g.asynctasks_term_pos = 'bottom'
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_term_rows = math.max(8, math.floor(vim.fn.winheight(0) / 5))
-    
+
     -- AsyncTask templates
     vim.g.asynctasks_template = {}
-    vim.g.asynctasks_template.cmake = { 
-        "[project-init]", 
-        "command=cmake -B build -GNinja", 
-        "cwd=<root>", 
+    vim.g.asynctasks_template.cmake = {
+        "[project-init]",
+        "command=cmake -B build -GNinja",
+        "cwd=<root>",
         "",
-        "[project-build]", 
-        "command=cmake --build build", 
+        "[project-build]",
+        "command=cmake --build build",
         "cwd=<root>",
-        "errorformat=%. %#--> %f:%l:%c", 
-        "", 
-        "[project-run]", 
-        "command=", 
+        "errorformat=%. %#--> %f:%l:%c",
+        "",
+        "[project-run]",
+        "command=",
         "cwd=<root>",
-        "output=terminal" 
+        "output=terminal"
     }
 
-    vim.g.asynctasks_template.cargo = { 
-        "[project-init]", 
-        "command=cargo update", 
-        "cwd=<root>", 
-        "", 
-        "[project-build]",
-        "command=cargo build", 
-        "cwd=<root>", 
-        "errorformat=%. %#--> %f:%l:%c", 
+    vim.g.asynctasks_template.cargo = {
+        "[project-init]",
+        "command=cargo update",
+        "cwd=<root>",
         "",
-        "[project-run]", 
-        "command=cargo run", 
-        "cwd=<root>", 
-        "output=terminal" 
+        "[project-build]",
+        "command=cargo build",
+        "cwd=<root>",
+        "errorformat=%. %#--> %f:%l:%c",
+        "",
+        "[project-run]",
+        "command=cargo run",
+        "cwd=<root>",
+        "output=terminal"
     }
 end
 
@@ -223,46 +222,60 @@ function M.setup_coc()
     command! -nargs=? Fold :call CocAction('fold', <f-args>)
     command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
     ]])
-    
-    -- Add any other coc.nvim configuration here
+    vim.g.coc_global_extensions = {
+        'coc-json',
+        'coc-tsserver',
+        'coc-pyright',
+        'coc-eslint',
+        'coc-prettier',
+        'coc-clangd',
+        'coc-rust-analyzer',
+        'coc-kotlin',
+        'coc-html',
+        'coc-css',
+        'coc-markdownlint',
+        'coc-go',
+        'coc-cmake',
+        'coc-lua',
+        'coc-toml',
+        'coc-yaml',
+    }
 end
 
 -- Setup for treesitter
 function M.setup_treesitter()
-  require("nvim-treesitter.configs").setup {
-    ensure_installed = {
-        "rust", "cpp", "c", "python", "json", "yaml", "toml",
-        "html", "css", "javascript", "typescript", "go", "markdown", "vim"
-    },
-    sync_install = false,
-    auto_install = true,
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
-    },
-    indent = {
-      enable = true,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<CR>",
-        node_incremental = "<CR>",
-        node_decremental = "<BS>",
-        scope_incremental = "<TAB>",
-      },
-    },
-    rainbow = {
-      enable = false,
-    },
-  }
+    require("nvim-treesitter.configs").setup {
+        ensure_installed = {
+            "rust", "cpp", "c", "python", "json", "yaml", "toml", "lua", "python", "bash",
+            "html", "css", "javascript", "typescript", "go", "markdown", "vim", "latex"
+        },
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+        },
+        indent = {
+            enable = true,
+        },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "<CR>",
+                node_incremental = "<CR>",
+                node_decremental = "<BS>",
+                scope_incremental = "<TAB>",
+            },
+        },
+        rainbow = {
+            enable = false,
+        },
+    }
 end
 
--- Function to apply global vim.g settings (called from init.lua)
-function M.apply_global_vim_g_settings()
-local home = os.getenv("HOME")
-    
-    -- VimWiki
+-- VimWiki
+function M.setup_vimwiki()
+    local home = os.getenv("HOME")
     vim.g.vimwiki_list = { {
         path = home .. '/.vimwiki/',
         path_html = home .. '/.vimwiki/html/',
@@ -271,7 +284,10 @@ local home = os.getenv("HOME")
         ext = '.md'
     } }
     vim.g.vimwiki_global_ext = 0
+end
 
+-- Function to apply global vim.g settings (called from init.lua)
+function M.apply_global_vim_g_settings()
     -- Markdown Preview
     vim.g.mkdp_theme = 'dark'
     vim.g.mkdp_page_title = '${name}'
@@ -284,7 +300,7 @@ local home = os.getenv("HOME")
     vim.g.cpp_simple_highlight = 1
     vim.g.cpp_function_highlight = 1
     vim.g.cpp_member_highlight = 1
-    
+
     -- Any other global settings that weren't already moved to specific plugin setup functions
 end
 

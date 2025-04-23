@@ -15,7 +15,7 @@ map('n', '<C-k><C-q>', ':bufdo Bdelete<CR>', opts)
 map('x', '<', '<gv', opts)
 map('x', '>', '>gv', opts)
 map('x', '<C-C>', '"+y1', opts)
-map('n', 'Y', 'yy', opts)       -- why you make this change???
+map('n', 'Y', 'yy', opts) -- why you make this change???
 
 -- Plugin keymaps
 map('n', '<F1>', ':nohlsearch<CR>', opts)
@@ -39,13 +39,13 @@ map('n', '<leader>=', '<Cmd>BufferLineCycleNext<CR>', opts)
 -- NvimTree (replacing NERDTree)
 map('n', '<leader>t', '<Cmd>NvimTreeFocus<CR>', opts)
 map('n', '<C-t>', '<Cmd>NvimTreeToggle<CR>', opts)
-map('n', '<C-n>', '<Cmd>NvimTreeFindFile<CR>', opts)
+map('n', '<C-n>', '<Cmd>NvimTreeFindFile!<CR>', opts)
 
 -- vimwiki already has its own mappings
 
 -- FZF
 map('n', '<leader>p', ':Files<CR>', opts)
-map('n', '<leader>rg', ':RG<CR>', opts)
+map('n', '<leader>F', ':RG<CR>', opts)
 
 -- Async Tasks
 map('n', '<F3>', ':AsyncTask project-init<CR>', { silent = true })

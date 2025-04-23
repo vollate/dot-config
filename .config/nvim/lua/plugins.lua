@@ -32,7 +32,12 @@ require("lazy").setup({ -- Buffer/Status line
     -- Vim cheatsheet
     "lifepillar/vim-cheat40",
     -- Vimwiki
-    "vimwiki/vimwiki",
+    {
+        "vimwiki/vimwiki",
+        init = function()
+            require('plugin_config').setup_vimwiki()
+        end,
+    },
     -- Undo Tree
     "mbbill/undotree",
     -- Markdown

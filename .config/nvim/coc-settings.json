@@ -3,19 +3,16 @@
   "suggest.enablePreselect": false,
   "suggest.triggerAfterInsertEnter": true,
   "suggest.timeout": 5000,
-  "suggest.enablePreview": true,
-  "suggest.floatEnable": true,
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
   "suggest.triggerCompletionWait": 100,
-  "suggest.echodocSupport": true,
 
   "diagnostic.errorSign": "✗",
   "diagnostic.warningSign": "⚡",
   "diagnostic.infoSign": "ℹ",
   "diagnostic.hintSign": "➤",
   "diagnostic.displayByAle": false,
-  
+
   "languageserver": {
     "clangd": {
       "command": "clangd",
@@ -23,14 +20,12 @@
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
     }
   },
-  
-  "coc.preferences.formatOnSaveFiletypes": [],
   "colors.highlightPriority": 1000,
   "coc.preferences.formatOnSave": true,
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveTimeout": 200,
-  "coc.preferences.extensionUpdateCheck": "daily",
-  "coc.preferences.silentAutoupdate": true,
+  "extensions.updateCheck": "daily",
+  "extensions.silentAutoupdate": true,
   "npm.binPath": "pnpm",
   "markdownlint.onSave": true,
   "markdownlint.onOpen": true,
@@ -40,9 +35,7 @@
     "no-inline-html": false
   },
   "coc.source.file.enable": true,
-  "coc.source.word.filetypes": [
-    "md"
-  ],
+  "coc.source.word.filetypes": ["md"],
   "rust-analyzer.server.path": "/usr/lib/rustup/bin/rust-analyzer",
   "python.pythonPath": "~/.py-conda",
   "python.formatting.provider": "black",
