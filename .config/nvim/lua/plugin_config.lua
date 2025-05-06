@@ -247,7 +247,7 @@ function M.setup_treesitter()
     require("nvim-treesitter.configs").setup {
         ensure_installed = {
             "rust", "cpp", "c", "python", "json", "yaml", "toml", "lua", "python", "bash",
-            "html", "css", "javascript", "typescript", "go", "markdown", "vim", "latex"
+            "html", "css", "javascript", "typescript", "go", "markdown", "vim",
         },
         sync_install = false,
         auto_install = true,
