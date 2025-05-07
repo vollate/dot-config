@@ -25,8 +25,14 @@ require("lazy").setup({ -- Buffer/Status line
         "akinsho/bufferline.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         config = function()
-            -- Load configuration from plugin_config.lua
             require("plugin_config").setup_bufferline()
+        end
+    },
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = "nvim-tree/nvim-web-devicons",
+        config = function()
+            require("plugin_config").setup_lualine()
         end
     },
     -- Vim cheatsheet
@@ -66,7 +72,7 @@ require("lazy").setup({ -- Buffer/Status line
     },
     -- Auto pairs
     "jiangmiao/auto-pairs",
-    
+
     -- Rainbow
     {
         "HiPhish/rainbow-delimiters.nvim",

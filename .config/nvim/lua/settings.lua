@@ -98,6 +98,8 @@ call UndoClean(120)
 call BackupClean(120)
 ]])
 
+-- Nvim.diagnostic settings
+
 -- Auto commands
 vim.cmd([[
 autocmd InsertLeave,WinEnter * set cursorline

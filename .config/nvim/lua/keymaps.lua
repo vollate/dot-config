@@ -15,7 +15,7 @@ map('n', '<C-k><C-q>', ':bufdo Bdelete<CR>', opts)
 map('x', '<', '<gv', opts)
 map('x', '>', '>gv', opts)
 map('x', '<C-C>', '"+y1', opts)
-map('n', 'Y', 'yy', opts) -- why you make this change???
+map('n', 'Y', 'yy', opts) -- why NeoVim make this behavior different from Vim?
 
 -- Plugin keymaps
 map('n', '<F1>', ':nohlsearch<CR>', opts)
@@ -57,6 +57,7 @@ map('n', '<F7>', ':call asyncrun#quickfix_toggle(max([8,winheight(0)/5]))<CR>', 
 -- Tagbar
 map('n', '<F8>', ':TagbarToggle<CR>', opts)
 
+---- coc.nvim below
 -- coc keybindings
 map('i', '<TAB>', [[coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()]],
     { silent = true, expr = true })

@@ -5,13 +5,15 @@
   "suggest.timeout": 5000,
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
-  "suggest.triggerCompletionWait": 100,
+  "suggest.triggerCompletionWait": 50,
 
+  "diagnostic.enable": true,
   "diagnostic.errorSign": "✗",
-  "diagnostic.warningSign": "⚡",
+  "diagnostic.warningSign": "‼",
   "diagnostic.infoSign": "ℹ",
   "diagnostic.hintSign": "➤",
   "diagnostic.displayByAle": false,
+  "diagnostic.displayByVimDiagnostic": false,
 
   "languageserver": {
     "clangd": {

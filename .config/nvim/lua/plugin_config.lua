@@ -7,17 +7,27 @@ function M.setup_bufferline()
             numbers = "ordinal", -- Show buffer numbers
             show_buffer_close_icons = true,
             show_close_icon = true,
-            separator_style = {
-                main = "", -- U+E0B0
-                prev = "" -- U+E0B2
-            },
-            -- Use coc for diagnostics
-            diagnostics = "coc",
+            separator_style = "slope",
             offsets = { {
                 filetype = "NvimTree",
                 text = "File Explorer",
                 text_align = "center"
             } },
+
+            -- Use coc for diagnostics
+            diagnostics = "coc",
+
+            diagnostics_indicator = function(count, level, diagnostics_dict, context)
+                local result = ""
+                local symbols = { error = "✗ ", warning = "‼ ", info = "ℹ ", hint = "➤ " }
+                for kind, n in pairs(diagnostics_dict) do
+                    if symbols[kind] and n > 0 then
+                        result = result .. symbols[kind] .. n .. " "
+                    end
+                end
+                return result
+            end,
+
             -- Add custom area for diagnostics count on the right
             custom_areas = {
                 right = function()
@@ -29,25 +39,73 @@ function M.setup_bufferline()
                     local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
 
                     if error ~= 0 then
-                        table.insert(result, { text = "  " .. error, link = "DiagnosticError" })
+                        table.insert(result, { text = " ✗ " .. error, link = "DiagnosticError" })
                     end
 
                     if warning ~= 0 then
-                        table.insert(result, { text = "  " .. warning, link = "DiagnosticWarn" })
+                        table.insert(result, { text = " ‼ " .. warning, link = "DiagnosticWarn" })
                     end
 
                     if hint ~= 0 then
-                        table.insert(result, { text = "  " .. hint, link = "DiagnosticHint" })
+                        table.insert(result, { text = " ➤ " .. hint, link = "DiagnosticHint" })
                     end
 
                     if info ~= 0 then
-                        table.insert(result, { text = "  " .. info, link = "DiagnosticInfo" })
+                        table.insert(result, { text = " ℹ " .. info, link = "DiagnosticInfo" })
                     end
                     return result
                 end,
             }
 
 
+
+        }
+    })
+end
+
+-- Lualine config function
+function M.setup_lualine()
+    require("lualine").setup({
+        options = {
+            theme = "auto",
+            icons_enabled = true,
+            section_separators = { left = "", right = "" }, -- slant
+            component_separators = { left = "", right = "" }, -- slant thin
+            always_divide_middle = true,
+        },
+        sections = {
+            lualine_a = { { "mode", separator = { right = "" }, right_padding = 2 } },
+            lualine_b = {
+                { "branch", icon = "" },
+                "diff",
+                "diagnostics",
+            },
+            lualine_c = {
+                { "filename", path = 1 },
+            },
+            lualine_x = {
+                "encoding",
+                "fileformat",
+                "filetype",
+            },
+            lualine_y = { "progress" },
+            lualine_z = {
+                { "location", separator = { left = "" }, left_padding = 2 },
+            },
+        },
+        inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = { "filename" },
+            lualine_x = { "location" },
+            lualine_y = {},
+            lualine_z = {},
+        },
+        tabline = {
+            -- Use bufferline's buffers/tabs
+        },
+        extensions = {
+            "nvim-tree", "fzf", "quickfix"
         }
     })
 end
