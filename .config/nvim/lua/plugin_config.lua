@@ -333,14 +333,21 @@ end
 
 -- VimWiki
 function M.setup_vimwiki()
-    local home = os.getenv("HOME")
+    local home = vim.fn.expand("~") 
+    local sep = package.config:sub(1, 1) 
+
+    local function join_path(...)
+        return table.concat({ ... }, sep)
+    end
+
     vim.g.vimwiki_list = { {
-        path = home .. '/.vimwiki/',
-        path_html = home .. '/.vimwiki/html/',
-        html_header = home .. '/.vimwiki/template/header.tpl',
-        syntax = 'markdown',
-        ext = '.md'
+        path = join_path(home, ".vimwiki"),
+        path_html = join_path(home, ".vimwiki", "html"),
+        html_header = join_path(home, ".vimwiki", "template", "header.tpl"),
+        syntax = "markdown",
+        ext = ".md",
     } }
+
     vim.g.vimwiki_global_ext = 0
 end
 

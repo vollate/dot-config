@@ -2,8 +2,7 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     -- Ensure the parent directory exists
-    vim.fn.system({ "mkdir", "-p", vim.fn.stdpath("data") .. "/lazy" })
-
+vim.fn.mkdir(vim.fn.stdpath("data") .. "/lazy", "p")
     -- Clone lazy.nvim
     local clone_result = vim.fn.system({ "git", "clone", "--filter=blob:none", "--single-branch",
         "https://github.com/folke/lazy.nvim.git", "--branch=stable", -- latest stable release
