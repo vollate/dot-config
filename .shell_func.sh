@@ -1,6 +1,6 @@
 function proxy_on() {
-    export {http,https,ftp}_proxy="http://127.0.0.1:37472"
-    export {HTTP,HTTPS,FTP}_PROXY="http://127.0.0.1:37472"
+    export {http,https,ftp}_proxy="http://127.0.0.1:${MIXIN_PROXY_PORT}"
+    export {HTTP,HTTPS,FTP}_PROXY="http://127.0.0.1:${MIXIN_PROXY_PORT}"
 }
 
 function proxy_off() {
@@ -26,4 +26,15 @@ function gbc() {
 function use_clang() {
     export CC=clang
     export CXX=clang++
+}
+
+function use_gcc() {
+    export CC=gcc
+    export CXX=g++
+}
+
+function disable_python_venv() {
+    while [[ $(which python) != '/usr/bin/python' ]]; do
+        mamba deactivate || break
+    done
 }
