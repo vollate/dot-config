@@ -1,20 +1,17 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    -- Ensure the parent directory exists
-vim.fn.mkdir(vim.fn.stdpath("data") .. "/lazy", "p")
-    -- Clone lazy.nvim
-    local clone_result = vim.fn.system({ "git", "clone", "--filter=blob:none", "--single-branch",
-        "https://github.com/folke/lazy.nvim.git", "--branch=stable", -- latest stable release
-        lazypath })
-
-    -- Check if the clone was successful
-    if vim.v.shell_error ~= 0 then
-        vim.api.nvim_err_writeln("Failed to clone lazy.nvim: " .. clone_result)
-        return
-    end
-
-    print("Lazy.nvim installed successfully!")
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -140,9 +137,13 @@ require("lazy").setup({ -- Buffer/Status line
     -- Buffer
     {
         "mhinz/vim-sayonara",
-        cmd = "Sayonara",
+        cmd = "Sayonara"
+    },
+    {
         "moll/vim-bbye",
-        cmd = "Bbye",
+        cmd = "Bbye"
+    },
+    {
         "djoshea/vim-autoread",
         config = function()
             vim.g.autoread = 1
