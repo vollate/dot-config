@@ -15,13 +15,6 @@
   "diagnostic.displayByAle": false,
   "diagnostic.displayByVimDiagnostic": false,
 
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-    }
-  },
   "colors.highlightPriority": 1000,
   "coc.preferences.formatOnSave": true,
   "coc.preferences.formatOnType": true,
