@@ -1,0 +1,18 @@
+{
+	"name": "Vimium C",
+	"@time": "7/26/2025, 7:05:47 PM",
+	"time": 1753527947703,
+	"environment": {
+		"extension": "2.12.3",
+		"platform": "linux",
+		"firefox": 141
+	},
+	"exclusionRules": [
+		{
+			"passKeys": "",
+			"pattern": "^[^/]*://127.0.0.1:*/*"
+		}
+	],
+	"keyLayout": 2,
+	"vimSync": true
+}
