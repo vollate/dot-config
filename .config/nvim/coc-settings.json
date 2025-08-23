@@ -41,11 +41,5 @@
     ".idea",
     ".vim",
     ".vscode"
-  ],
-  "clangd.arguments": [
-    "--background-index",
-    "--clang-tidy",
-    "--completion-style=detailed",
-    "--header-insertion=iwyu"
   ]
 }
