@@ -1,3 +1,7 @@
+if [[ -f $HOME/.profile ]]; then
+  source $HOME/.profile
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,7 +9,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $HOME/.profile
 
 case "$(uname -s)" in
     Darwin)
@@ -52,11 +55,11 @@ agent_load_env
 
 agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
-if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+if [[ ! "$SSH_AUTH_SOCK" ]] || [[ $agent_run_state = 2 ]]; then
     agent_start
     ssh-add $VKEY&>/dev/null
     ssh-add $GIT_WOA&>/dev/null
-elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+elif [[ "$SSH_AUTH_SOCK" ]] && [[ $agent_run_state = 1 ]]; then
     ssh-add $VKEY&>/dev/null
     ssh-add $GIT_WOA&>/dev/null
 fi
