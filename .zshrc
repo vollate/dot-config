@@ -22,15 +22,10 @@ case "$(uname -s)" in
         ;;
 
     Linux)
-        # TODO!: fix linux
-        #if command -v dircolors >/dev/null 2>&1; then
-            #eval "$(dircolors -b)"
-        #fi
-        #alias ls='ls --color=auto'
+        source '/usr/share/zsh-antidote/antidote.zsh'
         ;;
 
     *)
-        # 兼容其他操作系统的通用配置，或者不设置
         ;;
 esac
 
