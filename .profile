@@ -2,11 +2,14 @@ if [[ -f $HOME/.profile.local ]]; then
 	source $HOME/.profile.local
 fi
 
-agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+# SSH agent
+SSH_ENV=$HOME/.ssh/agent.env
+
+agent_load_env () { test -f "$SSH_ENV" && . "$SSH_ENV" >| /dev/null ; }
 
 agent_start () {
-    (umask 077; ssh-agent >| "$env")
-    . "$env" >| /dev/null ; }
+    (umask 077; ssh-agent >| "$SSH_ENV")
+    . "$SSH_ENV" >| /dev/null ; }
 
 agent_load_env
 
@@ -24,4 +27,4 @@ elif [[ "$SSH_AUTH_SOCK" ]] && [[ $agent_run_state = 1 ]]; then
 fi
 
 unset -f agent_load_env agent_start
-unset SSH_KEYCHAIN
+unset SSH_KEYCHAIN SSH_ENV
