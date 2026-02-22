@@ -23,7 +23,7 @@ case "$(uname -s)" in
         ;;
 
     Linux)
-        source '/usr/share/zsh-antidote/antidote.zsh'
+        source "${ANTIDOTE_DIR:-/usr/share/zsh-antidote}/share/antidote/antidote.zsh"
         ;;
 
     *)
