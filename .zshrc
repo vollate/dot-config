@@ -1,7 +1,17 @@
-if [[ -f $HOME/.profile ]]; then
+if grep -q '^ID=nixos$' /etc/os-release 2>/dev/null; then
+    IS_NIXOS=1
+else
+    IS_NIXOS=0
+fi
+
+if [[ $IS_NIXOS -eq 0 && -f $HOME/.profile ]]; then
     source $HOME/.profile
 fi
 
+if [[ $IS_NIXOS -eq 1 && -f $XDG_CONFIG_HOME/zsh/profile_shared ]]; then
+    source $XDG_CONFIG_HOME/zsh/profile_shared
+fi
+unset IS_NIXOS
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
