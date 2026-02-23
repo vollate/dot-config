@@ -2,6 +2,10 @@ if [[ -f $HOME/.profile.local ]]; then
 	source $HOME/.profile.local
 fi
 
+if [[ -f $HOME/.shell_func.sh ]]; then
+	source $HOME/.shell_func.sh
+fi
+
 # SSH agent
 SSH_ENV=$HOME/.ssh/agent.env
 
