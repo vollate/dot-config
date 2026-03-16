@@ -6,7 +6,8 @@
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
   "suggest.triggerCompletionWait": 50,
-
+  "clangd.path": "clangd",
+  "clangd.checkUpdates": false,
   "diagnostic.enable": true,
   "diagnostic.errorSign": "✗",
   "diagnostic.warningSign": "‼",
