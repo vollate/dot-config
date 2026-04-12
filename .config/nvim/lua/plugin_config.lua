@@ -177,6 +177,9 @@ function M.setup_rainbow_delimiters()
             'RainbowDelimiterViolet',
             'RainbowDelimiterCyan',
         },
+        blacklist = {
+            'conf',
+        },
     }
 end
 
@@ -333,8 +336,8 @@ end
 
 -- VimWiki
 function M.setup_vimwiki()
-    local home = vim.fn.expand("~") 
-    local sep = package.config:sub(1, 1) 
+    local home = vim.fn.expand("~")
+    local sep = package.config:sub(1, 1)
 
     local function join_path(...)
         return table.concat({ ... }, sep)
