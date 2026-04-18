@@ -36,6 +36,7 @@ require("lazy").setup({ -- Buffer/Status line
     -- Vimwiki
     {
         "vimwiki/vimwiki",
+        lazy = false,
         init = function()
             require('plugin_config').setup_vimwiki()
         end,

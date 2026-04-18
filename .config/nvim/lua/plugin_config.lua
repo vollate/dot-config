@@ -314,6 +314,9 @@ function M.setup_treesitter()
         auto_install = true,
         highlight = {
             enable = true,
+            disable = function(lang, buf)
+                return vim.bo[buf].filetype == "vimwiki"
+            end,
             additional_vim_regex_highlighting = false,
         },
         indent = {
@@ -352,6 +355,20 @@ function M.setup_vimwiki()
     } }
 
     vim.g.vimwiki_global_ext = 0
+
+    -- Treesitter attaches after VimWiki's ftplugin and overwrites <CR>.
+    -- Re-apply VimWiki's mapping after the current event loop tick.
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "vimwiki",
+        callback = function(ev)
+            vim.schedule(function()
+                if vim.api.nvim_buf_is_valid(ev.buf) then
+                    vim.keymap.set("n", "<CR>", "<Plug>VimwikiFollowLink",
+                        { buffer = ev.buf, silent = true })
+                end
+            end)
+        end,
+    })
 end
 
 -- Function to apply global vim.g settings (called from init.lua)
