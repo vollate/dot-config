@@ -156,6 +156,7 @@ require("lazy").setup({ -- Buffer/Status line
     -- treesitter
     {
         "nvim-treesitter/nvim-treesitter",
+        lazy = false,
         build = ":TSUpdate",
         config = function()
             require("plugin_config").setup_treesitter()

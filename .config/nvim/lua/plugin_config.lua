@@ -305,36 +305,67 @@ end
 
 -- Setup for treesitter
 function M.setup_treesitter()
-    require("nvim-treesitter.configs").setup {
-        ensure_installed = {
-            "rust", "cpp", "c", "python", "json", "yaml", "toml", "lua", "python", "bash",
-            "html", "css", "javascript", "typescript", "go", "markdown", "vim",
-        },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-            enable = true,
-            disable = function(lang, buf)
-                return vim.bo[buf].filetype == "vimwiki"
-            end,
-            additional_vim_regex_highlighting = false,
-        },
-        indent = {
-            enable = true,
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = "<CR>",
-                node_incremental = "<CR>",
-                node_decremental = "<BS>",
-                scope_incremental = "<TAB>",
-            },
-        },
-        rainbow = {
-            enable = false,
-        },
+    local languages = {
+        "rust", "cpp", "c", "python", "json", "yaml", "toml", "lua", "bash",
+        "html", "css", "javascript", "typescript", "go", "markdown", "vim",
     }
+
+    local ok_configs, ts_configs = pcall(require, "nvim-treesitter.configs")
+    if ok_configs then
+        ts_configs.setup {
+            ensure_installed = languages,
+            sync_install = false,
+            auto_install = true,
+            highlight = {
+                enable = true,
+                disable = function(_, buf)
+                    return vim.bo[buf].filetype == "vimwiki"
+                end,
+                additional_vim_regex_highlighting = false,
+            },
+            indent = {
+                enable = true,
+            },
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = "<CR>",
+                    node_incremental = "<CR>",
+                    node_decremental = "<BS>",
+                    scope_incremental = "<TAB>",
+                },
+            },
+            rainbow = {
+                enable = false,
+            },
+        }
+        return
+    end
+
+    local ok_ts, treesitter = pcall(require, "nvim-treesitter")
+    if not ok_ts then
+        vim.notify("nvim-treesitter is installed but could not be loaded", vim.log.levels.ERROR)
+        return
+    end
+
+    treesitter.setup()
+    treesitter.install(languages)
+
+    local augroup = vim.api.nvim_create_augroup("PluginConfigTreesitter", { clear = true })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = augroup,
+        pattern = "*",
+        callback = function(ev)
+            if vim.bo[ev.buf].filetype == "vimwiki" then
+                return
+            end
+
+            local ok_start = pcall(vim.treesitter.start, ev.buf)
+            if ok_start then
+                vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
+        end,
+    })
 end
 
 -- VimWiki
