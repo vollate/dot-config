@@ -119,6 +119,7 @@ function M.setup_nvim_tree()
         },
         renderer = {
             group_empty = true,
+            highlight_git = "name",
             icons = {
                 show = {
                     git = true,
@@ -129,17 +130,29 @@ function M.setup_nvim_tree()
             }
         },
         filters = {
-            dotfiles = false
+            dotfiles = false,
+            git_ignored = false
         },
         git = {
             enable = true,
-            ignore = true
+            ignore = false
         },
         update_focused_file = {
             enable = true,
             update_root = false
         }
     }
+
+    -- Dim gitignored files (VSCode-like behavior)
+    local function set_gitignored_highlight()
+        vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { fg = "#6c6c6c", italic = true })
+        vim.api.nvim_set_hl(0, "NvimTreeGitFileIgnoredHL", { fg = "#6c6c6c", italic = true })
+        vim.api.nvim_set_hl(0, "NvimTreeGitFolderIgnoredHL", { fg = "#6c6c6c", italic = true })
+    end
+    set_gitignored_highlight()
+    vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = set_gitignored_highlight,
+    })
 end
 
 -- Setup for rainbow
@@ -179,6 +192,22 @@ function M.setup_rainbow_delimiters()
         },
         blacklist = {
             'conf',
+            'fzf',
+            'TelescopePrompt',
+            'NvimTree',
+            'nvim-tree',
+            'tagbar',
+            'qf',
+            'quickfix',
+            'help',
+            'terminal',
+            'netrw',
+            'dashboard',
+            'lazy',
+            'mason',
+            'vimwiki',
+            'text',
+            '',
         },
     }
 end

@@ -477,6 +477,10 @@ tmux_conf_uninstall_plugins_on_reload=true
 
 set -g mouse on
 
+# Let terminal-native notifications from apps such as Claude Code/Codex escape
+# tmux even when they originate from a pane in another window.
+set -g allow-passthrough all
+
 bind s split-window -v
 bind v split-window -h
 setw -g mode-keys vi
@@ -508,5 +512,4 @@ set -g @prefix_highlight_show_sync_mode 'on'
 set -g @prefix_highlight_prefix_prompt '  '
 set -g @prefix_highlight_copy_prompt '  '
 set -g @prefix_highlight_sync_prompt ' 󰓦 '
-
 
