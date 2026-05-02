@@ -1,0 +1,16 @@
+1. Install keyd.
+2. Add the following config to /etc/keyd/default.conf:
+   ```
+   [ids]
+   *
+
+   [main]
+   capslock = overload(control, esc)
+   esc = capslock
+   rightcontrol = rightalt
+   rightalt = rightcontrol
+   ```
+3. Enable and start keyd:
+   `sudo systemctl enable --now keyd`
+4. After changing /etc/keyd/default.conf, reload keyd:
+   `sudo keyd reload`
