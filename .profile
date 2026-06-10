@@ -1,19 +1,27 @@
 if [[ $IS_NIXOS -eq 1 ]];then
-if [[ -f $XDG_CONFIG_HOME/zsh/profile.local ]]; then
-	source $XDG_CONFIG_HOME/zsh/profile.local
-fi
+    if [[ -f $XDG_CONFIG_HOME/zsh/profile.local ]]; then
+        source $XDG_CONFIG_HOME/zsh/profile.local
+    fi
 
-if [[ -f $XDG_CONFIG_HOME/zsh/shell_func.sh ]]; then
-	source $XDG_CONFIG_HOME/zsh/shell_func.sh
-fi
+    if [[ -f $XDG_CONFIG_HOME/zsh/shell_func.sh ]]; then
+        source $XDG_CONFIG_HOME/zsh/shell_func.sh
+    fi
+
+    if [[ -f $XDG_CONFIG_HOME/zsh/post_profile ]]; then
+        source $XDG_CONFIG_HOME/zsh/post_profile
+    fi
 else
-if [[ -f $HOME/.profile.local ]]; then
-	source $HOME/.profile.local
-fi
+    if [[ -f $HOME/.profile.local ]]; then
+        source $HOME/.profile.local
+    fi
 
-if [[ -f $HOME/.shell_func.sh ]]; then
-	source $HOME/.shell_func.sh
-fi
+    if [[ -f $HOME/.shell_func.sh ]]; then
+        source $HOME/.shell_func.sh
+    fi
+
+    if [[ -f $HOME/.post_profile ]]; then
+        source $HOME/.post_profile
+    fi
 fi
 # SSH agent
 SSH_ENV=$HOME/.ssh/agent.env
