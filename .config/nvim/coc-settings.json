@@ -42,5 +42,8 @@
     ".idea",
     ".vim",
     ".vscode"
-  ]
+  ],
+  "json.schemaDownload.trustedDomains": {
+    "https://www.schemastore.org": true
+  }
 }

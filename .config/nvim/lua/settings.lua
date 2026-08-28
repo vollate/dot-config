@@ -9,12 +9,17 @@ opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
 opt.showcmd = true
-opt.wrap = true
+-- Disable line wrapping for long code lines (scroll instead, like VSCode).
+opt.wrap = false
 opt.wildmenu = true
 opt.hlsearch = true
 opt.incsearch = true
 opt.ignorecase = true
 opt.smartcase = true
+
+-- linespace controls extra pixel gap between lines in terminal UI.
+-- Default is 0 (compact). Increase this to 1-4 for a looser, more readable density.
+opt.linespace = 1
 opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
 opt.backspace = 'indent,eol,start'
