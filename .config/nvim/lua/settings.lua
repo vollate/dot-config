@@ -122,9 +122,6 @@ function! SetTwoSpaces()
     setlocal shiftwidth=2
 endfunction
 
-" Surround for latex
-autocmd FileType tex let b:AutoPairs = {"(":")","{":"}","[":"]"}
-
 " Jump to last edit
 autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |

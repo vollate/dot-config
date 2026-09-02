@@ -216,7 +216,7 @@ end
 function M.setup_colorscheme()
     -- Theme/color settings
     vim.opt.termguicolors = true
-    vim.cmd('set t_Co=256')
+    pcall(vim.cmd, "set t_Co=256")
 
     vim.g.sonokai_style = 'maia'
     vim.g.sonokai_enable_italic = 1
@@ -226,11 +226,11 @@ function M.setup_colorscheme()
 
     -- Safe colorscheme function that doesn't error when the scheme isn't available
     local function set_colorscheme(name)
-        local status_ok, _ = pcall(vim.cmd, "colorscheme " .. name)
+        local status_ok, _ = pcall(vim.cmd.colorscheme, name)
         if not status_ok then
             vim.notify("Colorscheme " .. name .. " not found! Using default.", vim.log.levels.WARN)
             -- Use a default built-in colorscheme as fallback
-            pcall(vim.cmd, "colorscheme desert")
+            pcall(vim.cmd.colorscheme, "desert")
             return false
         end
         return true
@@ -239,10 +239,8 @@ function M.setup_colorscheme()
     -- Apply the colorscheme
     set_colorscheme("sonokai")
 
-    vim.cmd([[
-    let &t_Cs = "\e[4:3m"
-    let &t_Ce = "\e[4:0m"
-    ]])
+    pcall(vim.cmd, "let &t_Cs = '\\e[4:3m'")
+    pcall(vim.cmd, "let &t_Ce = '\\e[4:0m'")
 end
 
 -- Setup for asyncrun
@@ -307,11 +305,37 @@ end
 -- Setup for coc.nvim
 function M.setup_coc()
     -- Add COC custom commands
-    vim.cmd([[
-    command! -nargs=0 Format :call CocActionAsync('format')
-    command! -nargs=? Fold :call CocAction('fold', <f-args>)
-    command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
-    ]])
+    vim.api.nvim_create_user_command("Format", function()
+        if vim.fn.exists('*CocActionAsync') == 1 then
+            vim.fn.CocActionAsync('format')
+        end
+    end, {
+        desc = "Format current buffer via Coc",
+        force = true,
+    })
+
+    vim.api.nvim_create_user_command("Fold", function(opts)
+        if vim.fn.exists('*CocAction') == 1 then
+            if #opts.fargs == 0 then
+                vim.fn.CocAction('fold')
+            else
+                vim.fn.CocAction('fold', unpack(opts.fargs))
+            end
+        end
+    end, {
+        nargs = '?',
+        desc = 'Run Coc fold',
+        force = true,
+    })
+
+    vim.api.nvim_create_user_command("OR", function()
+        if vim.fn.exists('*CocActionAsync') == 1 then
+            vim.fn.CocActionAsync('runCommand', 'editor.action.organizeImport')
+        end
+    end, {
+        desc = 'Run Coc organizeImport',
+        force = true,
+    })
     vim.g.coc_global_extensions = {
         'coc-json',
         'coc-tsserver',

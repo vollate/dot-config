@@ -1,19 +1,17 @@
--- Set locale
-vim.cmd([[
-let $LANG = 'en_US.UTF-8'
-let $LC_CTYPE="en_US.UTF-8"
-let $LC_NUMERIC="en_US.UTF-8"
-let $LC_TIME="en_US.UTF-8"
-let $LC_COLLATE="en_US.UTF-8"
-let $LC_MONETARY="en_US.UTF-8"
-let $LC_MESSAGES="en_US.UTF-8"
-let $LC_PAPER="en_US.UTF-8"
-let $LC_NAME="en_US.UTF-8"
-let $LC_ADDRESS="en_US.UTF-8"
-let $LC_TELEPHONE="en_US.UTF-8"
-let $LC_MEASUREMENT="en_US.UTF-8"
-let $LC_IDENTIFICATION="en_US.UTF-8"
-]])
+-- Set locale via environment variables
+vim.env.LANG = 'en_US.UTF-8'
+vim.env.LC_CTYPE = 'en_US.UTF-8'
+vim.env.LC_NUMERIC = 'en_US.UTF-8'
+vim.env.LC_TIME = 'en_US.UTF-8'
+vim.env.LC_COLLATE = 'en_US.UTF-8'
+vim.env.LC_MONETARY = 'en_US.UTF-8'
+vim.env.LC_MESSAGES = 'en_US.UTF-8'
+vim.env.LC_PAPER = 'en_US.UTF-8'
+vim.env.LC_NAME = 'en_US.UTF-8'
+vim.env.LC_ADDRESS = 'en_US.UTF-8'
+vim.env.LC_TELEPHONE = 'en_US.UTF-8'
+vim.env.LC_MEASUREMENT = 'en_US.UTF-8'
+vim.env.LC_IDENTIFICATION = 'en_US.UTF-8'
 
 -- Setup leader key before loading plugins
 vim.g.mapleader = '\\'

@@ -71,7 +71,13 @@ require("lazy").setup({ -- Buffer/Status line
         ft = { "gitignore" }
     },
     -- Auto pairs
-    "jiangmiao/auto-pairs",
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-autopairs").setup()
+        end
+    },
 
     -- Rainbow
     {

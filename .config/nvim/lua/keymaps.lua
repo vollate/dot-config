@@ -22,10 +22,14 @@ map('n', '<F1>', ':nohlsearch<CR>', opts)
 map('n', '<F2>', ':UndotreeToggle<CR>', opts)
 
 -- Copilot
-vim.cmd([[
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
-]])
+vim.keymap.set("i", "<C-J>", function()
+    return vim.fn["copilot#Accept"]("\r")
+end, {
+    silent = true,
+    expr = true,
+    script = true,
+})
+vim.g.copilot_no_tab_map = true
 
 -- Bufferline (replacing airline)
 for i = 1, 9 do
@@ -59,25 +63,65 @@ map('n', '<F8>', ':TagbarToggle<CR>', opts)
 
 ---- coc.nvim below
 -- coc keybindings
-map('i', '<TAB>', [[coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()]],
-    { silent = true, expr = true })
-map('i', '<S-TAB>', [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], { expr = true })
-map('i', '<CR>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-    { silent = true, expr = true })
+local function coc_pum_visible()
+    return vim.fn.exists('*coc#pum#visible') == 1 and vim.fn['coc#pum#visible']() == 1
+end
 
--- coc CheckBackspace function
-vim.cmd([[
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-]])
+local function check_backspace()
+    local col = vim.fn.col('.') - 1
+    if col <= 0 then
+        return true
+    end
+    return vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+end
+
+map('i', '<TAB>', function()
+    if coc_pum_visible() then
+        return vim.fn['coc#pum#next'](1)
+    end
+
+    if check_backspace() then
+        return '<Tab>'
+    end
+
+    if vim.fn.exists('*coc#refresh') == 1 then
+        return vim.fn['coc#refresh']()
+    end
+
+    return '<Tab>'
+end, { silent = true, expr = true })
+map('i', '<S-TAB>', function()
+    if coc_pum_visible() then
+        return vim.fn['coc#pum#prev'](1)
+    end
+
+    return '<C-h>'
+end, { expr = true })
+map('i', '<CR>', function()
+    if coc_pum_visible() and vim.fn.exists('*coc#pum#confirm') == 1 then
+        return vim.fn['coc#pum#confirm']()
+    end
+
+    return vim.api.nvim_replace_termcodes('<C-g>u\r<c-r>=coc#on_enter()<CR>', true, false, true)
+end, { silent = true, expr = true })
+
+
 
 -- coc trigger completion
 if vim.fn.has('nvim') == 1 then
-    map('i', '<c-space>', 'coc#refresh()', { silent = true, expr = true })
+    map('i', '<c-space>', function()
+        if vim.fn.exists('*coc#refresh') == 1 then
+            return vim.fn['coc#refresh']()
+        end
+        return ''
+    end, { silent = true, expr = true })
 else
-    map('i', '<c-2>', 'coc#refresh()', { silent = true, expr = true })
+    map('i', '<c-2>', function()
+        if vim.fn.exists('*coc#refresh') == 1 then
+            return vim.fn['coc#refresh']()
+        end
+        return ''
+    end, { silent = true, expr = true })
 end
 
 -- coc diagnostic navigation
@@ -91,20 +135,24 @@ map('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
 map('n', 'gr', '<Plug>(coc-references)', { silent = true })
 
 -- Show documentation
-map('n', 'K', ':call ShowDocumentation()<CR>', { silent = true })
+local function show_documentation()
+    if vim.fn.exists('*CocAction') == 1 and vim.fn.CocAction('hasProvider', 'hover') then
+        vim.fn.CocActionAsync('doHover')
+    else
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('K', true, false, true), 'n', false)
+    end
+end
 
-vim.cmd([[
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-]])
+map('n', 'K', show_documentation, { silent = true })
 
 -- coc Highlight symbol
-vim.cmd('autocmd CursorHold * silent call CocActionAsync(\'highlight\')')
+vim.api.nvim_create_autocmd("CursorHold", {
+    callback = function()
+        if vim.fn.exists('*CocActionAsync') == 1 then
+            pcall(vim.fn.CocActionAsync, 'highlight')
+        end
+    end,
+})
 
 -- coc rename symbol
 map('n', '<leader>rn', '<Plug>(coc-rename)', {})
