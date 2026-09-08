@@ -162,6 +162,7 @@ require("lazy").setup({ -- Buffer/Status line
     -- treesitter
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main", -- The legacy master branch does not support Neovim 0.12.
         lazy = false,
         build = ":TSUpdate",
         config = function()
