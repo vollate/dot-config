@@ -75,7 +75,10 @@ require("lazy").setup({ -- Buffer/Status line
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
-            require("nvim-autopairs").setup()
+            require("nvim-autopairs").setup({
+                -- Keep Coc's <CR> completion mapping when InsertEnter loads autopairs.
+                map_cr = false,
+            })
         end
     },
 
