@@ -475,15 +475,36 @@ tmux_conf_uninstall_plugins_on_reload=true
 # # /!\ do not remove the previous line
 # #     do not write below this line
 
+# Shared settings for NixOS and non-Nix platforms.
+set -g base-index 1
 set -g mouse on
+set -g default-terminal 'screen-256color' #!important
+set -g renumber-windows on
+setw -g mode-keys vi
+
+# Limits are per pane / automatic paste buffer, not a server-wide RAM cap.
+set -g history-limit 20000 #!important
+set -s buffer-limit 10
+# Older tmux versions without this option keep their built-in input limit.
+set -sq input-buffer-size 1048576
+# Allow copying out, but reject application-created OSC 52 buffers.
+set -s set-clipboard external
+
+# Preserve modifiers when the terminal supports extended keys and the app requests them.
+%if #{>=:#{s/^[^0-9]+//:#{version}},3.2}
+set -s extended-keys on
+%endif
+# Oh My Tmux already binds prefix + m to toggle mouse capture.
+
+set -g prefix2 C-a
+bind C-a send-prefix -2
 
 # Let terminal-native notifications from apps such as Claude Code/Codex escape
 # tmux even when they originate from a pane in another window.
 set -g allow-passthrough all
 
-bind s split-window -v
-bind v split-window -h
-setw -g mode-keys vi
+bind s split-window -v -c '#{pane_current_path}' #!important
+bind v split-window -h -c '#{pane_current_path}' #!important
 
 tmux_conf_theme_left_separator_main='\uE0B0'
 tmux_conf_theme_left_separator_sub='\uE0B1'
@@ -497,19 +518,19 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @yank_with_mouse on
 
-set -g @plugin 'wfxr/tmux-power'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @plugin 'wfxr/tmux-power'
 set -g @tmux_power_theme 'snow'
 set -g @tmux_power_date_icon ' '
 set -g @tmux_power_time_icon ' '
 set -g @tmux_power_user_icon ' '
 set -g @tmux_power_session_icon ' '
-set -g @tmux_power_right_arrow_icon     "\ue0c6"
-set -g @tmux_power_left_arrow_icon      "\ue0c7"
+set -g @tmux_power_right_arrow_icon     ''
+set -g @tmux_power_left_arrow_icon      ''
 set -g @tmux_power_prefix_highlight_pos 'R'
 set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_show_sync_mode 'on'
-set -g @prefix_highlight_prefix_prompt '  '
-set -g @prefix_highlight_copy_prompt '  '
+set -g @prefix_highlight_prefix_prompt '  '
+set -g @prefix_highlight_copy_prompt '  '
 set -g @prefix_highlight_sync_prompt ' 󰓦 '
 
