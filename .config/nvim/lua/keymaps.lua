@@ -2,6 +2,10 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- Basic keymaps
+map('n', '<Space>w', '<Cmd>setlocal wrap! wrap?<CR>', {
+    silent = true,
+    desc = 'Toggle line wrap',
+})
 map('n', 'S', ':w<CR>', opts)
 map('n', 'Q', ':q<CR>', opts)
 map('n', '<C-h>', '0', opts)
