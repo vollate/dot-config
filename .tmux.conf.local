@@ -487,8 +487,8 @@ set -g history-limit 20000 #!important
 set -s buffer-limit 10
 # Older tmux versions without this option keep their built-in input limit.
 set -sq input-buffer-size 1048576
-# Allow copying out, but reject application-created OSC 52 buffers.
-set -s set-clipboard external
+# Allow applications such as Pi to copy to the client clipboard over SSH via OSC 52.
+set -s set-clipboard on
 
 # Preserve modifiers when the terminal supports extended keys and the app requests them.
 %if #{>=:#{s/^[^0-9]+//:#{version}},3.2}
